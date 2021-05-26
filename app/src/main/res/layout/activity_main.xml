@@ -33,11 +33,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/tvCategory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:text="@string/app_title_sub"
+                android:text=""
                 android:textColor="@color/white"/>
 
             <androidx.recyclerview.widget.RecyclerView

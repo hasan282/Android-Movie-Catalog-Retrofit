@@ -13,12 +13,19 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var category: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        rvMovieList.layoutManager= LinearLayoutManager(this)
+        tvCategory.text = intent.getStringExtra("category")
+        category = intent.getStringExtra("url").toString()
+
+        rvMovieList.layoutManager = LinearLayoutManager(this)
         rvMovieList.setHasFixedSize(true)
+
         getMovieData { movies: List<Movie> ->
             rvMovieList.adapter = AdapterMovie(movies)
         }
@@ -26,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getMovieData(callback: (List<Movie>) -> Unit) {
         val apiService = MovieService.getInstance().create(MovieAPI::class.java)
-        apiService.getMovieList().enqueue(object : Callback<MovieResponse> {
+        apiService.getMovieList(category).enqueue(object : Callback<MovieResponse> {
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 return callback(response.body()!!.movies)
