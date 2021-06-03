@@ -1,7 +1,7 @@
 package id.trials.moviecatalog
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.trials.moviecatalog.models.Movie
 import id.trials.moviecatalog.models.MovieResponse
@@ -26,6 +26,15 @@ class MainActivity : AppCompatActivity() {
         rvMovieList.layoutManager = LinearLayoutManager(this)
         rvMovieList.setHasFixedSize(true)
 
+        srlRefresh.setOnRefreshListener {
+            load()
+            srlRefresh.isRefreshing = false
+        }
+
+        load()
+    }
+
+    private fun load() {
         getMovieData { movies: List<Movie> ->
             rvMovieList.adapter = AdapterMovie(movies)
         }
